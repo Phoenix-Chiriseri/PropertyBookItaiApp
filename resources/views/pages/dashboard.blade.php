@@ -64,9 +64,42 @@
 #data-table table{
     margin: 20px auto;
 }
+
+#spinner:not([hidden]) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  border: 2px solid #f3f3f3;
+  border-top: 3px solid #f25a41;
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
     </style>
     <script>
     jQuery(function($){
+    const spinner = document.getElementById("spinner");
+    spinner.removeAttribute("hidden");
    $(document).ajaxSend(function() {
     $("#overlay").fadeIn(300);　
    });       
@@ -78,6 +111,7 @@
         var results = response.data.children;
          $.each(results, function(index, singlesRedditItem){
           //jQuery("#overlay").fadeIn(300);
+          spinner.setAttribute("hidden", "");
           $('#repos').append(`
             <div class="card">
               <div class="row">
@@ -132,7 +166,7 @@
                         <span class="sr-only">Fetching Data From Api</span>
                         </div>
                         <div class="row" id = "repos"></div>
-                        <div class="overlay"></div>
+                        <div hidden id="spinner"></div>
                         </p>
                     </div>
                 </div>

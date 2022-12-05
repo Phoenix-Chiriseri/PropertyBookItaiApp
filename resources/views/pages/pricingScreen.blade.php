@@ -1,5 +1,4 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100 rtl'])
-
 @section('content')
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
     <aside
@@ -160,6 +159,7 @@
                                 </div>
                             </div>
                         </div>
+                        <p class="text-uppercase text-center text-sm">Update Price. First Price is Beginner Package, Second is Medium Package, Third is Professional Package. Changes will appear on home screen</p>
                         <div class="card-body p-0 pb-2">
                             <div class="table-responsive">
                               <table class="table table-hovered">

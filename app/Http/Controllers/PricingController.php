@@ -19,6 +19,17 @@ class PricingController extends Controller
         $prices = Pricing::all();
         return view('pages.pricingScreen')->with("prices",$prices);
     }
+
+    public function addPriceScreen(){
+
+
+        return view('pages.addNewPrice');
+    }
+
+    public function postPrice(Request $request){
+
+        print_r($request->all());
+    }
     /**
      * Show the form for creating a new resource.
      *

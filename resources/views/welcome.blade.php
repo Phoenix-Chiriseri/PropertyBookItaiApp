@@ -31,6 +31,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
+const spinner = document.getElementById("spinner");
+spinner.removeAttribute("hidden");
 jQuery(function($){
   $(document).ajaxSend(function() {
     $("#overlay").fadeIn(300);　
@@ -42,6 +44,7 @@ jQuery(function($){
        url:'https://api.openweathermap.org/data/2.5/weather?lat=-17.824858&lon=31.053028&appid=a2755480e2c07f45b35fe4669c73ec53&units=metric',
       success: function(response){
         //console.log(data);
+        spinner.setAttribute("hidden", "");
         var weatherData = response;
         //var locationName = response.name;
         var weatherDescription = weatherData.weather[0].description;
@@ -227,6 +230,37 @@ body.loading .overlay{
       font-size: .875rem; }
   .pricing-table .card .fa-ul li:not(:last-child) {
     margin-bottom: 1rem; }
+
+    #spinner:not([hidden]) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  border: 2px solid #f3f3f3;
+  border-top: 3px solid #f25a41;
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 @media (min-width: 992px) {
   .pricing-table .card:hover {
@@ -476,9 +510,9 @@ body.loading .overlay{
   >
    {{$story[0]->story_description}}
      <div id = "showHarareWeather" class = "row"></div>
+     <div hidden id="spinner"></div>
      <div id="overlay">
      <div class="cv-spinner">
-     <span class="spinner">Loading Weather Data</span>
   </div>
 </div>
   </div>
@@ -698,7 +732,7 @@ body.loading .overlay{
       <button class="btn btn-outline-primary btn-rounded text-center">Beginner Package</button>
     </div>
   </div>
-</div>
+</div>    
             <h6 class="card-price text-center">{{$prices[0]->price}}<span class="term">/month</span></h6>
             <div class = "container">
              <div class="container">
@@ -715,6 +749,8 @@ body.loading .overlay{
               <li><span class="fa-li"><i class="fas fa-check"></i></span>One Bathroom and Toilet</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span>One Jaccuzzi</li>
               <li class="grey-text"><span class="fa-li"><i class="fas fa-times"></i></span>No Garage</li>
+              <div class="col text-center">
+              </div>
             </ul>
             </div>
         </div>
@@ -747,7 +783,7 @@ body.loading .overlay{
         <div class="card">
           <div class="card-body">
            <div class="col text-center">
-      <button class="btn btn-outline-primary text-center">Start Free Trial</button>
+      <button class="btn btn-outline-primary text-center">Professional Package</button>
     </div>
             <h6 class="card-price text-center">{{$prices[2]->price}}<span class="term">/month</span></h6>
              <div class="col text-center">

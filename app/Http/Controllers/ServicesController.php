@@ -21,6 +21,20 @@ class ServicesController extends Controller
         return view('pages.servicesScreen')->with('services',$services);
     }
 
+    public function addServicesScreen(){
+
+        return view('pages.addServiceScreen');
+    }
+
+
+    public function postService(Request $request){
+
+        $service = new Services();
+        $service->name = $request->input('service_name');
+        $service->description = $request->input('service_description');
+        $service->save();
+        return redirect('/dashboard');
+    }
     //edit a single service by id
     public function editService($id){
         $service = Services::find($id);
